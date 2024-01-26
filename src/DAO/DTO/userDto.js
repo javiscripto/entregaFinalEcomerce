@@ -4,5 +4,6 @@ export default class UserDTO{
 	this.email=userDB.email;
 	this.role=userDB.role;
 	this._id=userDB._id;
+	this.last_Connection=userDB.last_Conection
 }
 };
