@@ -1,0 +1,66 @@
+<div
+  class="navbar navbar-expand-lg navbar-light bg-dark"
+  style="gap: 2rem;color:white;"
+>
+  <h2 class="nav-item blue">Bienvenido {{user.first_name}} </h2><br />
+  <h6 class="nav-item blue">has accedido como {{user.role}}</h6>
+  <div class="nav-item">
+    {{#if adminRole}}
+      <a class="nav-link" href="/">agregar mas productos </a>
+    {{/if}}
+
+  </div>
+
+  <a class="nav-link" href="/logout">logout</a>
+  <a href="/api/users/{{user._id}}" class="nav-link">ver perfil </a>
+  <div class="user-cart nav-item">
+    <a class="nav-link" href="/api/carts/{{user._id}}">ver carrito(s)</a>
+  </div>
+  <form action="/api/carts/{{user._id}}" method="post" class="user-cart nav-item">
+  <button type="submit">crear nuevo carrito</button>
+  </form>
+  <div class="dropdown">
+    <button
+      class="btn btn-secondary dropdown-toggle"
+      type="button"
+      id="dropdownMenuButton1"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      categorias
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li><a class="dropdown-item" href="#">moscas</a></li>
+      <li><a class="dropdown-item" href="#">cañas</a></li>
+      <li><a class="dropdown-item" href="#">carretes</a></li>
+    </ul>
+  </div>
+</div>
+
+<div>
+  {{#each dbProducts}}
+
+    <div class="card" style="width: 18rem;margin:2rem;">
+      <h4>{{title}}</h4>
+      <p> price: ${{price}} </p>
+      <p> category: {{cat}} </p>
+
+      <a href="/api/products/{{_id}}">detail...</a>
+    </div>
+
+  {{/each}}
+
+  {{#if hasPreviousPage}}
+    <a
+      class="nav-link"
+      href="/api/products?page={{previousPage}}&limit={{limit}}"
+    >previous</a>
+  {{/if}}
+  {{#if hasNextPage}}
+    <a
+      class="nav-link"
+      href="/api/products?page={{nextPage}}&limit={{limit}}"
+    >next</a>
+  {{/if}}
+
+</div>

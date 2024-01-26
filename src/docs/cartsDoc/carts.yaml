@@ -1,0 +1,83 @@
+openapi: 3.0.1
+info:
+  title: API carts section
+  description: Ruta para operaciones relacionadas con carritos
+  version: 1.0.0
+
+paths:
+  /api/carts/:
+    get:
+      summary: Obtiene todos los carritos o un carrito por su ID
+      tags:
+        - carts
+      parameters:
+        - name: cid
+          in: query
+          description: Parámetro opcional para buscar un carrito por su ID (/api/carts/idDelCarrito)
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: Éxito al obtener el recurso de la base de datos
+        "500":
+          description: Error interno en el servidor
+
+    post:
+      summary: Crea un nuevo carrito y lo asocia a un usuario mediante su ID
+      tags:
+        - carts
+      parameters:
+        - name: uid
+          in: query
+          description: Parámetro obligatorio para buscar al usuario en la base de datos.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Éxito al obtener el recurso de la base de datos
+        "500":
+          description: Error interno en el servidor
+
+  /api/carts/{cid}/products/{pid}:
+    delete:
+      summary: Elimina un producto del carrito por su ID
+      tags:
+        - carts
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito para encontrarlo en la base de datos
+          schema:
+            type: string
+        - name: pid
+          in: path
+          description: ID del producto a eliminar
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Éxito al obtener el recurso de la base de datos
+        "500":
+          description: Error interno en el servidor
+
+components:
+  schemas:
+    cart:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID auto generado por mongoose
+        products:
+          type: array
+          description: Contiene los productos agregados en el carrito
+          items:
+            type: object
+            properties:
+              item:
+                type: string
+                description: ID de un objeto producto que representa a dicho objeto (referencia)
+              quantity:
+                type: number
+                description: Cantidad del producto agregado, por defecto es 1 al momento de agregar un producto si no se especifica su cantidad

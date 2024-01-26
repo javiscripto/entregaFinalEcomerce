@@ -1,0 +1,18 @@
+<div class="container-fluid bg-dark" style="color:white">
+    <h1 >cargar documentos</h1>
+</div>
+
+<div class="container-fluid">
+    <p>para <strong> acceder a premium</strong> debes subir los diguientes archivos:</p>
+   
+   <form id="user-role-form" action="/api/users/{{uid}}/documents" method="POST" enctype="multipart/form-data">
+    <label for="identificacion">identificacion *</label>
+    <input type="file" name="identificacion" id="identificacion" >
+    <label for="domicilio">domicilio *</label>
+    <input type="file" name="domicilio" id="domicilio" >
+    <label for="estado-cuenta">estado de cuenta *</label>
+    <input type="file" name="estado-cuenta" id="estado-cuenta" >
+    <button type="submit">subir documentos</button>
+   </form>
+</div>
+

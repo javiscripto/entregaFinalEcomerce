@@ -1,0 +1,20 @@
+{{#each messages}}
+  <p><strong>{{user}}</strong> {{message}}</p>
+{{/each}}
+
+<form action="/messages/" method="post">
+
+  <label for="user">user</label>
+  <input type="text" name="user" id="user" required />
+
+  <label for="email">email</label>
+  <input type="text" name="email" id="email" required />
+  <br />
+  <label for="message">write something...</label>
+  <br />
+
+  <textarea name="message" id="content" cols="30" rows="10"></textarea>
+  <br />
+  <button type="submit">send</button>
+
+</form>

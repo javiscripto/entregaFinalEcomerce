@@ -1,0 +1,77 @@
+openapi: 3.0.1
+info:
+  title: API products section
+  description: Descripción de la API de Productos
+  version: 1.0.0
+
+paths:
+  /api/products/:
+    get:
+      summary: Obtiene un array con todos los productos o bien un producto por su id
+      tags:
+        - products
+      parameters:
+        - name: pid
+          in: query
+          description: buscar un producto por su id
+          schema:
+            type: string
+  
+      responses:
+        "200":
+          description: Se obtuvo el recurso de la base de datos
+        "500":
+          description: Error interno en el servidor
+  
+    post:
+      summary: recibe un objeto y lo almacena en la base de datos
+      tags:
+        - products
+      responses:
+        "200":
+          description: Se obtuvo el recurso de la base de datos
+        "500":
+          description: Error interno en el servidor
+  /api/products/{pid}:
+      summary: recibe un objeto y lo almacena en la base de datos
+      tags:
+        - products
+      parameters:
+        - name: pid
+          in: query
+          description: corresponde al id del producto a eliminar en la base de datos
+          schema:
+            type: string    
+
+components:
+  schemas:
+    product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Id auto generado por mongoose
+        title:
+          type: string
+          description: Título del producto
+        description:
+          type: string
+          description: Ofrece una breve descripción del producto al ver los detalles
+        code:
+          type: string
+          description: Código del producto de uso interno
+        price:
+          type: number
+          description: Precio del producto en la moneda local
+        status:
+          type: boolean
+          description: Indica si un producto está activo, es decir, 
+        owner:
+          type: string
+          description: Contiene el ID del usuario que ingresó el producto.
+        stock:
+          type: number
+          description: La cantidad de productos en stock
+        cat:
+          type: string
+          description: La categoría a la que pertenece el producto para realizar búsquedas por filtro

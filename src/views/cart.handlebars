@@ -1,0 +1,17 @@
+<h1>Carrito {{cid}}</h1>
+
+Producto(s):
+{{#each products}}
+  <div class="card" style="width: 18rem;margin:2rem;">
+    <h3>Artículo: {{item.title}}</h3>
+    <p>precio: ${{item.price}} clp</p>
+    <p>Cantidad: {{quantity}}</p>
+  </div>
+
+{{/each}}
+
+
+
+<form action="/api/carts/{{cid}}/purchase" method="post">
+<button type="submit">finalizar la compra</button>
+</form>

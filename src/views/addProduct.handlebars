@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forms</title>
+</head>
+<body>
+    <h3>form new product</h3>
+    <form action="/api/products" method="post">
+        <label for="title">title</label>
+        <input type="text" name="title" id="titleProduct" required>
+
+        <label for="descriptionProduct">description</label>
+        <input type="text" name="description" id="descriptionProduct" required>
+
+        <label for="code">internal code</label>
+        <input type="text" name="code" id="internalCode">
+
+        <label for="priceProduct">price</label>
+        <input type="number" name="price" id="priceProduct" required>
+        
+        <label for="status">status</label>
+        <select name="status" id="statusValue" required>
+            <option value=true> true</option>
+            <option value=false> false</option>
+        </select>
+
+        <label for="stock">stock</label>
+        <input type="number" name="stock" id="stockProduct" required>
+
+        <label for="category">category</label>
+        <input type="text" name="cat" id="categoryProduct" required>
+        <button type="reset">reset</button>
+        <button type="submit">agregar producto</button>
+    </form>
+   
+
+  
+
+
+
+
+</body>
+</html>

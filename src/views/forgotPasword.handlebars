@@ -1,0 +1,14 @@
+<h1>reestablecer la contraseña</h1>
+
+<form action="/api/sessions/ForgotPassword" method="post">
+    <label for="email">ingresa tu correo</label>
+    <input type="email" name="email" id="email" required>
+    <button id="alert" type="submit">reestablecer la contraseña</button>
+</form>
+
+<script>
+   
+    document.getElementById("alert").addEventListener("click",()=>{
+        alert("revisa tu bandeja de entrada")
+    })
+</script>
