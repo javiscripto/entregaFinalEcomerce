@@ -37,3 +37,13 @@
 
     visibility: hidden;
 }
+
+.user-card{
+    margin: 1rem;
+    display: flex;
+    justify-content: space-between;
+    border: solid rgba(0, 0, 0, 0.218);
+}
+.user-card p{
+    text-align: center;
+}

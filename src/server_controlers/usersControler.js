@@ -5,8 +5,8 @@ const userService= new UserMongo()
 //get ALL users (admin)
 export const getAllUsers = async(req, res)=>{
     try {
-        const result = await userService.getAllUsers();
-        res.json({payload:result})
+        const users = await userService.getAllUsers();
+        res.status(200).render("adminView", {users})
 
     } catch (error) {
         res.status(500).send({message:"error interno del servidor"})
@@ -35,11 +35,12 @@ export const PUTuserRole = async(req, res)=>{
         const newUserRole= req.body.role;
         
         const result= await userService.updateRole(uid,newUserRole)
-
+        //updateRole devuelve al usuario actualizado una vez realizada la validacion. 
         if(result){
-           //updateRole devuelve al usuario actualizado una vez realizada la validacion. 
-        //registro del usuario actualizado en la sesion
-        req.session.user=result;
+             if(req.session.user.role!=="admin"){ //valido si quien realizó la solicitud fue el administrador
+            req.session.user=result;
+        };
+        
         return res.status(200).send("el rol del usuario ha sido actualizado");
         };
         

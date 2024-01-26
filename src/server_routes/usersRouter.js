@@ -18,7 +18,7 @@ const adminAuthorization= authorize(["admin"])
 
 const router= Router();
 //obtener informacion del usuario
-router.get("/:uid", getUserInfo);
+router.get("/:uid", activeSession , getUserInfo);
 
 //obtener todos los usuarios
 router.get("/", activeSession,adminAuthorization, getAllUsers);
