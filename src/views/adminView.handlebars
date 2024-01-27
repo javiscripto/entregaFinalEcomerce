@@ -6,8 +6,17 @@
         <p><strong>email:</strong> {{email}} </p>
         <p><strong>rol:</strong> {{role}}</p>
         <p><strong>id:</strong> {{_id}} </p>
+        <p>última conexión: {{last_Connection }}</p>
         <button class="update-role-btn" type="submit" userRole={{role}} userid={{_id}}>actualizar rol</button>
     </div>
 {{/each}}
+
+
+
+<button id="btn-delete">eliminar usuarios inactivos</button>
+
+
+
+
 
 <script src="/js/admin.js"></script>

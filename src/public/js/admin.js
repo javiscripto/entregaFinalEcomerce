@@ -1,5 +1,6 @@
 
 
+
 //actualizar el rol de usuario desde la vista del administrador
 const buttons= document.querySelectorAll(".update-role-btn")
 buttons.forEach(btn=>{
@@ -25,11 +26,25 @@ buttons.forEach(btn=>{
         .catch(error=>{
             console.error("Error en la solicitud:", error);
             alert("Error en la solicitud");
-        })
+        });
+    })
+})
 
+//eliminar usuarios inactivos
 
+const btnDelete= document.getElementById("btn-delete");
+btnDelete.addEventListener("click", ()=>{
 
-
-
+    fetch("/api/users/delete",{
+        method:"DELETE",
+        headers:{"Content-Type":"application/json"}
+    })
+    .then(response=>{
+        console.log(response)
+        alert("usuarios eliminados")
+        location.reload()
+    })
+    .catch(error=>{
+        console.error("errror en la solicitud", error)
     })
 })

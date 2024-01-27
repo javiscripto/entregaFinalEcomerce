@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 
 import { logger } from "../../utils/logger.js";
 import { generateResetToken } from "../config/resetToken.js";
-import { createHash } from "../../utils.js";
+import { createHash , transporter} from "../../utils.js";
 import jwt from "jsonwebtoken";
 import UserMongo from "../DAO/classes/userClass.js";
 import env from "../env_config/env_config.js";
@@ -10,19 +10,6 @@ import userModel from "../DAO/models/users.model.js";
 import UserDTO from "../DAO/DTO/userDto.js";
 
 const userService = new UserMongo();
-
-const transporter = nodemailer.createTransport({
-  service: "Gmail",
-
-  auth: {
-    user: "javiermanque.fotos@gmail.com",
-    pass: env.MAILER_PASS,
-  },
-  tls: {
-    // do not fail on invalid certs
-    rejectUnauthorized: false,
-  },
-});
 
 // register
 export const getRegister = (req, res) => {

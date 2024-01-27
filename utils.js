@@ -1,4 +1,6 @@
 import { faker } from "@faker-js/faker";
+import nodemailer from "nodemailer";
+import env from "./src/env_config/env_config.js";
 
 faker.location = "es";
 
@@ -38,23 +40,18 @@ export const activeSession = (req, res, next) => {
     next();
   }
 };
+//nodemailer transport
 
-/////////multer middleware
-//profile-products-documents
-// import multer from 'multer';
+export const transporter = nodemailer.createTransport({
+  service: "Gmail",
 
-// export const multer=()=>{
-
-//   const storage= multer.diskStorage({
-//   destination:(req, file, cb)=>{
-//     cb(null, "uploads/")
-//   },
-//   filename:(req, file, cb)=>{
-//     cb(null, file.fieldname+`-`+Date.now()+`-`+file.originalname);
-//   }
-// });
-
-// const upload= multer({storage:storage})
-// return upload
-// }
+  auth: {
+    user: "javiermanque.fotos@gmail.com",
+    pass: env.MAILER_PASS,
+  },
+  tls: {
+    // do not fail on invalid certs
+    rejectUnauthorized: false,
+  },
+});
 

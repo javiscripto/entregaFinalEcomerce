@@ -1,11 +1,13 @@
 import { logger } from "../../utils/logger.js";
 import UserMongo from "../DAO/classes/userClass.js";
+import { transporter } from "../../utils.js";
 const userService= new UserMongo()
 
 //get ALL users (admin)
 export const getAllUsers = async(req, res)=>{
     try {
         const users = await userService.getAllUsers();
+        
         res.status(200).render("adminView", {users})
 
     } catch (error) {
@@ -14,6 +16,23 @@ export const getAllUsers = async(req, res)=>{
     }
 }
 
+export const deleteUsers= async(req, res)=>{
+    try {
+        const inactiveUsers= await userService.deleteUser();
+        console.log(inactiveUsers);
+        res.json({payload:inactiveUsers})
+        
+
+    } catch (error) {
+        res.status(500).send({message:"error interno del servidor"})
+        logger.error("error interno del servidor: ", error)
+    }
+}
+
+
+
+
+/////////////////////////////////////////////
 //get user info
 export const getUserInfo = async(req, res) => {
     try {
