@@ -1,4 +1,4 @@
-import { logger } from "../../utils/logger.js";
+import { logger } from "../../logger/logger.js";
 import ProductsMOngo from "../DAO/classes/productsClass.js";
 import productModel from "../DAO/models/product.model.js";
 

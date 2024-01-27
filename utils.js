@@ -1,6 +1,8 @@
 import { faker } from "@faker-js/faker";
 import nodemailer from "nodemailer";
+import jwt from "jsonwebtoken";
 import env from "./src/env_config/env_config.js";
+import { logger } from "./logger/logger.js";
 
 faker.location = "es";
 
@@ -23,23 +25,11 @@ export const createHash = (password) => {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 };
 
-///////////////////////////
+
 export const isValidPass = (user, password) => {
   return bcrypt.compareSync(password, user.password);
 };
-//middleware que valida una sesion activa
-export const activeSession = (req, res, next) => {
 
-  if (process.env.NODE_ENV !== "test"){
-    if (!req.isAuthenticated()) {
-      return res.redirect("/api/sessions/login");
-    }
-
-    next();
-  }else{
-    next();
-  }
-};
 //nodemailer transport
 
 export const transporter = nodemailer.createTransport({
@@ -55,3 +45,9 @@ export const transporter = nodemailer.createTransport({
   },
 });
 
+//reset token 
+export const generateResetToken = (email )=> {
+  const token = jwt.sign({ email },env.JWT_SECRET, { expiresIn: "1h" }); 
+  logger.info("el token es:",token)
+  return token;
+};

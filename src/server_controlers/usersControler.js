@@ -1,4 +1,4 @@
-import { logger } from "../../utils/logger.js";
+import { logger } from "../../logger/logger.js";
 import UserMongo from "../DAO/classes/userClass.js";
 import { transporter } from "../../utils.js";
 const userService= new UserMongo()
@@ -71,7 +71,7 @@ export const PUTuserRole = async(req, res)=>{
         //updateRole devuelve al usuario actualizado una vez realizada la validacion. 
         if(result){
              if(req.session.user.role!=="admin"){ //valido si quien realizó la solicitud fue el administrador
-            req.session.user=result;
+            req.session.user=result;//actualizo req.session 
         };
         
         return res.status(200).send("el rol del usuario ha sido actualizado");
@@ -106,7 +106,7 @@ export const uploadDocuments = async (req, res) => {
         res.send("Archivos cargados");
     } catch (error) {
         res.status(500).send({ message: "Error interno del servidor" });
-        console.error("error en la solicitud: ", error)
+        logger.error("error en la solicitud: ", error)
     }
 };
 export const uploadPhoto = async(req, res)=>{
@@ -119,6 +119,6 @@ export const uploadPhoto = async(req, res)=>{
         res.status(200).json({message:"foto de perfil actualizada", payload: result})
     } catch (error) {
         res.status(500).send({ message: "Error interno del servidor" });
-        console.error("error en la solicitud: ", error)
+        logger.error("error en la solicitud: ", error)
     }
 }

@@ -1,8 +1,7 @@
 
 
-import { logger } from "../../utils/logger.js";
-import { generateResetToken } from "../config/resetToken.js";
-import { createHash , transporter} from "../../utils.js";
+import { logger } from "../../logger/logger.js";
+import { createHash , transporter, generateResetToken} from "../../utils.js";
 import jwt from "jsonwebtoken";
 import UserMongo from "../DAO/classes/userClass.js";
 import env from "../env_config/env_config.js";

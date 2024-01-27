@@ -1,7 +1,7 @@
 import { Router } from "express";
 import{getAll, getById, createProduct,updateProduct,deleteProduct} from "../server_controlers/products.controler.js"
-import{activeSession} from "../../utils.js";
-import authorize from "../config/authorizeMiddleware.js";
+import{activeSession} from "../middlewares/activeSessionMiddleware.js"
+import authorize from "../middlewares/authorizeMiddleware.js";
 import passport from "passport";
 import initializePassport from "../config/passport.config.js";
 import userModel from "../DAO/models/users.model.js";

@@ -1,6 +1,6 @@
 import { cartModel } from "../models/carts.model.js";
 import userModel from "../models/users.model.js";
-import { logger } from "../../../utils/logger.js";
+import { logger } from "../../../logger/logger.js";
 import productModel from "../models/product.model.js";
 
 class CartsMongo {

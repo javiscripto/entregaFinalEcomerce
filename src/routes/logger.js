@@ -1,4 +1,4 @@
-import { logger } from "../../utils/logger.js";
+import { logger } from "../../logger/logger.js";
 import { Router } from "express";
 
 const router= Router();

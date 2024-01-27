@@ -1,5 +1,5 @@
 
-import { logger } from "../../../utils/logger.js";
+import { logger } from "../../../logger/logger.js";
 import { ticketModel } from "../models/ticket.model.js";
 
 

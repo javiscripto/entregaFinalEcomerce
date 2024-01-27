@@ -1,6 +1,6 @@
 import userModel from "../models/users.model.js";
 import {cartModel} from "../models/carts.model.js"
-import { logger } from "../../../utils/logger.js";
+import { logger } from "../../../logger/logger.js";
 import UserDTO from "../DTO/userDto.js";
 
 export default class UserMongo {

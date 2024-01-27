@@ -2,7 +2,7 @@ import CartsMongo from "../DAO/classes/cartsClass.js";
 import userModel from "../DAO/models/users.model.js";
 import { TicketMongo } from "../DAO/classes/ticketClass.js";
 import ProductsMOngo from "../DAO/classes/productsClass.js";
-import { logger } from "../../utils/logger.js";
+import { logger } from "../../logger/logger.js";
 
 const cartService = new CartsMongo();
 const productService= new ProductsMOngo();

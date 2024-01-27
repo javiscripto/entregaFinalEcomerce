@@ -4,7 +4,7 @@ import session from "express-session";
 import config from "./env_config/env_config.js";
 import MongoStore from "connect-mongo";
 import passport from "passport";
-import { addLoggerMiddleware , logger} from "../utils/logger.js";
+import { addLoggerMiddleware , logger} from "../logger/logger.js";
 import errorHandler from "./middlewares/index.js"
 import initializePassport from "./config/passport.config.js";
 
@@ -108,9 +108,6 @@ app.set("views", __dirname + `/views`);
 
 
 
-////////////////// Middleware de autorización para ciertos endpoints
-
-import authorize from "./config/authorizeMiddleware.js";
 
 
 
@@ -135,7 +132,7 @@ mongoose
     logger.info("conectado a la base de datos");
   })
   .catch((error) => {
-    logger.error("error al conectar ");
+    logger.error("error al conectar ", error);
   });
 
 

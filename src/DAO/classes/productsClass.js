@@ -1,5 +1,5 @@
 import productModel from "../models/product.model.js";
-import { logger } from "../../../utils/logger.js";
+import { logger } from "../../../logger/logger.js";
 
 class ProductsMOngo {
   constructor() {}

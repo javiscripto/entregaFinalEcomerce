@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { activeSession } from "../../utils.js";
-import authorize from "../config/authorizeMiddleware.js";
+import { activeSession } from "../middlewares/activeSessionMiddleware.js";
+import authorize from "../middlewares/authorizeMiddleware.js";
 import { createMulterMiddleware } from "../middlewares/multerMiddleware.js";
 import { getUserInfo , getForm, uploadDocuments, uploadPhoto, PUTuserRole, getAllUsers, deleteUsers } from "../server_controlers/usersControler.js";
 

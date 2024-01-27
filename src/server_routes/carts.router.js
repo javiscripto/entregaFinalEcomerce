@@ -1,7 +1,7 @@
 import { Router } from "express";
 import cartControler from "../server_controlers/cart.controler.js";
 import userModel from "../DAO/models/users.model.js";
-import authorize from "../config/authorizeMiddleware.js";
+import authorize from "../middlewares/authorizeMiddleware.js";
 import passport from "passport";
 
 

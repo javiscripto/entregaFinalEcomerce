@@ -1,5 +1,5 @@
 import { Router } from "express";
-import authorize from "../config/authorizeMiddleware.js";
+import authorize from "../middlewares/authorizeMiddleware.js";
 
 import { getAll } from "../server_controlers/ticket.controler.js";
 
