@@ -19,8 +19,22 @@ export const getAllUsers = async(req, res)=>{
 export const deleteUsers= async(req, res)=>{
     try {
         const inactiveUsers= await userService.deleteUser();
-        console.log(inactiveUsers);
-        res.json({payload:inactiveUsers})
+        inactiveUsers.forEach(user=>{
+            const mailOPtion = {
+                from: "javiermanque.fotos@gmail.com",
+                to: user.email,
+                subject: "eliminacion de la cuenta",
+                text: `estimado ${user.fullname} \n Hemos eliminado tu cuenta por inactividad. `,
+              };
+              transporter.sendMail(mailOPtion, (error, info) => {
+                if (error) {
+                  logger.error(" ha ocurrido un error : ", error);
+                } else {
+                  logger.info("mensaje enviado correctamente: ", info);
+                }
+              });
+        })
+        res.json(inactiveUsers)
         
 
     } catch (error) {

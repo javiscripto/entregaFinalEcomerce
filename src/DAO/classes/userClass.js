@@ -130,8 +130,8 @@ getUserById= async(userId)=>{
       if (!users || users.length === 0) return null;
   
       const horaActual = new Date();
-      const limit = 48 * 60 * 60 * 1000; // 2 dias en ms
-  
+      //const limit = 48 * 60 * 60 * 1000; // 2 dias en ms
+      const limit= 5*60*1000 // 5 min en ms
       // Filtrar usuarios inactivos
       const usuariosInactivos = users.filter(user => {
         const lastConnection= new Date(user.last_Connection)
@@ -139,12 +139,13 @@ getUserById= async(userId)=>{
         return tiempoInactivo>=limit
       });
   
-     //obtengo el id de los usuarios inactivos 
-     const usersIds= usuariosInactivos.map(user=>user._id)
+     //obtengo el id de los usuarios inactivos
+     const usersIds= usuariosInactivos.map(user=>user._id);
+     
      //obtengo el id de sus carritos
      const usersCartsIds= usuariosInactivos.map(user=>user.carts.map(cart=>cart._id))
      
-      // Eliminar usuarios inactivos y carritos
+      // Elimino usuarios inactivos y sus respectivos carritos
     await userModel.deleteMany({ _id: { $in: usersIds } });
     await cartModel.deleteMany({_id:{$in:usersCartsIds}})
   
