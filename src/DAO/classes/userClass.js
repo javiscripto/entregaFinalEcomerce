@@ -155,6 +155,19 @@ getUserById= async(userId)=>{
       throw error;
     }
   };
+
+  deleteUserById=async(userid)=>{
+    try {
+      const user = await userModel.findByIdAndDelete(userid);
+      const cartIds= user.carts.map(cart=>cart._id)
+      await cartModel.deleteMany({_id:{$in:cartIds}}) 
+      logger.info("usuario eliminado con exito")     
+      return user
+    } catch (error) {
+      logger.error("Ha ocurrido un error al realizar la consulta :", error);
+      throw error;
+    }
+  }
   
 
 }

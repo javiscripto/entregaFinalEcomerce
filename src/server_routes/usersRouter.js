@@ -2,7 +2,7 @@ import { Router } from "express";
 import { activeSession } from "../middlewares/activeSessionMiddleware.js";
 import authorize from "../middlewares/authorizeMiddleware.js";
 import { createMulterMiddleware } from "../middlewares/multerMiddleware.js";
-import { getUserInfo , getForm, uploadDocuments, uploadPhoto, PUTuserRole, getAllUsers, deleteUsers } from "../server_controlers/usersControler.js";
+import { getUserInfo , getForm, uploadDocuments, uploadPhoto, PUTuserRole, getAllUsers, deleteUsers, deleteUserById } from "../server_controlers/usersControler.js";
 
 
 
@@ -27,6 +27,7 @@ router.get("/", activeSession,adminAuthorization, getAllUsers);
 //(puedes hacer pruebas con los últimos 30 minutos, por ejemplo). Deberá enviarse un correo indicando al usuario que su cuenta ha sido eliminada por inactividad
 router.delete("/delete", activeSession, adminAuthorization, deleteUsers)
 
+router.delete("/delete/:uid", activeSession, adminAuthorization, deleteUserById)
 
 //actualizar role de usuario en DB
 router.put("/premium/:uid",activeSession, PUTuserRole );

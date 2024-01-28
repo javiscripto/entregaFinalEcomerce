@@ -7,12 +7,18 @@
         <p><strong>rol:</strong> {{role}}</p>
         <p><strong>id:</strong> {{_id}} </p>
         <p>última conexión: {{last_Connection }}</p>
-        <button class="update-role-btn" type="submit" userRole={{role}} userid={{_id}}>actualizar rol</button>
+        <div class="acciones">
+            <button class="update-role-btn" type="submit" userRole={{role}} userid={{_id}}>actualizar rol</button>
+            <button class="delete-user" userid={{_id}}>eliminar al usuario</button>
+        </div>
+       
     </div>
 {{/each}}
 
 
-
+<p>
+    eliminar a los usuarios que tengan un tiempo de desconexion igual o mayor a 2 días 
+</p>
 <button id="btn-delete">eliminar usuarios inactivos</button>
 
 

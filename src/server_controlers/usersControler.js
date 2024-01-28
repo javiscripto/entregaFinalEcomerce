@@ -14,6 +14,18 @@ export const getAllUsers = async(req, res)=>{
         res.status(500).send({message:"error interno del servidor"})
         logger.error("error interno del servidor: ", error)
     }
+};
+
+export const deleteUserById=async(req, res)=>{
+    try {
+        const userId= req.params.uid;
+        const result = await userService.deleteUserById(userId);
+        if(!result)return res.status(400).send("ha ocurrido un problema al eliminar al usuario");
+        res.status(200).send({status:"success"})
+    } catch (error) {
+        res.status(500).send({message:"error interno del servidor"})
+        logger.error("error interno del servidor: ", error)
+    }
 }
 
 export const deleteUsers= async(req, res)=>{

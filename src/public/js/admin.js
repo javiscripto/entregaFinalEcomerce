@@ -47,4 +47,27 @@ btnDelete.addEventListener("click", ()=>{
     .catch(error=>{
         console.error("errror en la solicitud", error)
     })
+});
+
+//eliminar un usuario especifico
+const buttonsDelete= document.querySelectorAll(".delete-user")
+buttonsDelete.forEach(btn=>{
+    btn.addEventListener("click",()=>{
+        const userid= btn.getAttribute("userid");
+
+        fetch(`/api/users/delete/${userid}`,{
+            method:"DELETE",
+            headers:{"Content-Type":"application/json"}
+        }).then(response=>{
+            if(response.ok){
+                alert(`usuario ${userid} eliminado exitosamente`);
+                location.reload()
+            }else if(response.status===400){
+                alert("ha ocurrido un error")
+            }
+        })
+        .catch(error=>{
+            console.error("ha ocurrido un error en la solicitud: ", error)
+        })
+    })
 })

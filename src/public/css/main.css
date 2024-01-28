@@ -41,6 +41,7 @@
 .user-card{
     margin: 1rem;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     border: solid rgba(0, 0, 0, 0.218);
 }
