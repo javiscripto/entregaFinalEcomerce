@@ -82,19 +82,12 @@ class ProductsMOngo {
 
       //valido antes de eliminar el producto
       if(currentUser.role=="admin" || (currentUser.role=="premium" && currentUser._id==owner._id)){
+        await productModel.findByIdAndDelete(productId);
         return {owner:{email:owner.email, name:`${owner.first_name} ${owner.last_name}`},product:product}
       }else{
         logger.warn("el usuario actual no puede eliminar el producto")
         return null
-      }
-      
-
-      // if(currentUser.role=="admin" ||currentUser.role=="premium" && currentUser._id==owner._id){
-      //     const deletedProduct = await productModel.findByIdAndDelete(productId);
-      //     return [deletedProduct, owner.email];
-      // };
-      // logger.warn("el usuario actual no puede eliminar el producto")
-      //   return null
+      };
       
     } catch (error) {
       logger.error("error", error);
