@@ -1,5 +1,6 @@
 import productModel from "../models/product.model.js";
 import { logger } from "../../../logger/logger.js";
+import userModel from "../models/users.model.js";
 
 class ProductsMOngo {
   constructor() {}
@@ -73,15 +74,27 @@ class ProductsMOngo {
     }
   };
 
-  deleteProduct = async (productId,owner) => {
+  deleteProduct = async (productId,currentUser) => {
     try {
       const product = await productModel.findById(productId);
-      if(owner.role=="admin" || product.owner==owner._Id && owner.role=="premium"){
-        const deletedProduct = await productModel.findByIdAndDelete(productId);
-        return deletedProduct;
-        
-      };
-      return null;
+      const owner= await userModel.findById(product.owner)
+      
+
+      //valido antes de eliminar el producto
+      if(currentUser.role=="admin" || (currentUser.role=="premium" && currentUser._id==owner._id)){
+        return {owner:{email:owner.email, name:`${owner.first_name} ${owner.last_name}`},product:product}
+      }else{
+        logger.warn("el usuario actual no puede eliminar el producto")
+        return null
+      }
+      
+
+      // if(currentUser.role=="admin" ||currentUser.role=="premium" && currentUser._id==owner._id){
+      //     const deletedProduct = await productModel.findByIdAndDelete(productId);
+      //     return [deletedProduct, owner.email];
+      // };
+      // logger.warn("el usuario actual no puede eliminar el producto")
+      //   return null
       
     } catch (error) {
       logger.error("error", error);

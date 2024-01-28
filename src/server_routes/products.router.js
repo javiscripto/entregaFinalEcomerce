@@ -47,7 +47,7 @@ router.post("/",adminAuthorization, uploadImg.single("image") ,createProduct );
 router.put("/:pid",adminAuthorization, updateProduct);
 
 //delete Poduct
-router.delete("/:pid",adminAuthorization, deleteProduct)
+router.delete("/:pid", adminAuthorization , deleteProduct)
 
 
 
