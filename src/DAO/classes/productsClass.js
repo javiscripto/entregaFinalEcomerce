@@ -76,8 +76,9 @@ class ProductsMOngo {
 
   deleteProduct = async (productId,currentUser) => {
     try {
-      const product = await productModel.findById(productId);
-      const owner= await userModel.findById(product.owner)
+      const product = await productModel.findById(productId).lean();
+      const ownerid= product.owner 
+      const owner= await userModel.findById(ownerid);
       
 
       //valido antes de eliminar el producto
