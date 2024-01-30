@@ -7,6 +7,7 @@ import UserMongo from "../DAO/classes/userClass.js";
 import env from "../env_config/env_config.js";
 import userModel from "../DAO/models/users.model.js";
 import UserDTO from "../DAO/DTO/userDto.js";
+import { Error } from "mongoose";
 
 const userService = new UserMongo();
 
@@ -30,7 +31,8 @@ export const getLogin = (req, res) => {
 };
 
 export const postLogin = (req, res) => {
-  if (!req.user)
+  try {
+      if (!req.user)
     return res
       .status(401)
       .send({ status: "error", error: "credencial invalida" });
@@ -38,6 +40,11 @@ export const postLogin = (req, res) => {
   const sessionUser= new UserDTO(req.user)
   req.session.user =sessionUser;
   res.status(302).redirect("/api/products");
+  } catch (error) {
+    res.status(500).send("error interno del servidor")
+    logger.error(error)
+  }
+
 };
 
 export const failLogin = (req, res) => {
