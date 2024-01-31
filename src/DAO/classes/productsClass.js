@@ -77,13 +77,18 @@ class ProductsMOngo {
   deleteProduct = async (productId,currentUser) => {
     try {
       const product = await productModel.findById(productId).lean();
+      if(!product){
+        console.log("producto no encontrado")
+        return null
+      }
       const ownerid= product.owner 
-      const owner= await userModel.findById(ownerid);
+      const owner= await userModel.findById(ownerid)
       
 
       //valido antes de eliminar el producto
       if(currentUser.role=="admin" || (currentUser.role=="premium" && currentUser._id==owner._id)){
         await productModel.findByIdAndDelete(productId);
+        owner.save()
         return {owner:{email:owner.email, name:`${owner.first_name} ${owner.last_name}`},product:product}
       }else{
         logger.warn("el usuario actual no puede eliminar el producto")

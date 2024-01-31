@@ -30,7 +30,7 @@ const adminAuthorization = authorize(['admin',"premium"]);
 router.get("/", activeSession, getAll);
 
 //get by id 
-router.get("/:pid",getById);
+router.get("/:pid",activeSession, getById);
 
 
 
@@ -47,7 +47,7 @@ router.post("/",adminAuthorization, uploadImg.single("image") ,createProduct );
 router.put("/:pid",adminAuthorization, updateProduct);
 
 //delete Poduct
-router.delete("/:pid" , deleteProduct)
+router.delete("/:pid" , adminAuthorization, deleteProduct)
 
 
 
