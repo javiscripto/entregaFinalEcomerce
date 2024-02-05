@@ -5,7 +5,8 @@
   "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
+    "dev":"nodemon app.js",
     "prod-test": "mocha test/prod.test.js --timeout 10000 --exit",
     "cart-test": "mocha test/cart.test.js --timeout 20000 --exit",
     "session-test": "mocha test/session.test.js --timeout 20000 --exit"

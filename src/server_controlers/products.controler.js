@@ -4,6 +4,7 @@ import productModel from "../DAO/models/product.model.js";
 import { transporter } from "../../utils.js";
 
 import { createMulterMiddleware } from "../middlewares/multerMiddleware.js";
+import { createTransport } from "nodemailer";
 
 const productService = new ProductsMOngo();
 
@@ -26,6 +27,7 @@ export const getAll = async (req, res) => {
       const user = req.session.user;
       const adminRole = user.role === "admin" || user.role === "premium"; // Corregir la condición de roles
 
+      console.log(user)
       res.status(200).render("products", {
         dbProducts,
         hasPreviousPage,
@@ -49,10 +51,11 @@ export const getAll = async (req, res) => {
 
 export const getById = async (req, res) => {
   try {
-    const cart = req.session.user.cart;
+    const carts = req.session.user.carts;
     const pid = req.params.pid;
     const product = await productService.getById(pid);
-    res.render("detail", { product, pid, cart });
+    console.log(carts)
+    res.render("detail", { product, pid, carts });
   } catch (error) {
     res.status(500).json({ result: "error", message: error.message });
   }

@@ -30,24 +30,40 @@ const getUserCart= async(req, res)=>{
 }
 
 const getById=async(req, res)=>{
-    //const cid = req.params.cid
-    const {cartId}= req.query
+  try {
+        const cartId= req.params.cid
+        logger.debug(cartId)
     const cart = await cartService.getById(cartId);
-    
+    console.log(cart)
     const products= cart.products
     //
     
    
-    res.render("cart",{products,cid})
+    res.render("cart",{products,cartId})
+  } catch (error) {
+    res.status(500).send("error interno del servidor");
+    logger.error("ha ocurrido un error interno en el servidor: ", error)
+  }
+
 }
 
 const addProduct= async(req, res)=>{
+    try {
     const cid= req.params.cid;
+    
     const pid= req.params.pid;
+ 
     const quantity= Number(req.body.quantity)
+    
+  
     const result= await cartService.addProduct(cid,pid,quantity);
     
     res.json(result)
+    } catch (error) {
+        res.status(500).send("ha ocurrido un error interno: ", error);
+        logger.error("error interno en el servidor: ", error);
+    }
+ 
 }
 
 const deleteProduct= async (req, res)=>{

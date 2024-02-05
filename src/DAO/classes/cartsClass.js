@@ -65,18 +65,24 @@ class CartsMongo {
     try {
 
       //validacion de owner 
-      const user = userModel.findOne({cart:cartId});
-      const product= productModel.findOne({_id:productId});
-
+      const user = await userModel.findOne({carts:{ $in: cartId }});
+      
+      const product= await productModel.findOne({_id:productId});
+//revisar validacion de creador de product
       if(user.role!=="admin" && product.owner==user.id){
-        return "no puedes agregar este producto a tu carrito"
+        logger.debug("service: no puedes agregar este producto a tu carrito");
+        return null;
       };
       //fin validacion
 
 
 
       const cart = await cartModel.findById(cartId);
-      if (!cart) return `El carrito con id ${cartId} no existe`;
+      console.log(cart)
+      if (!cart){
+        logger.debug(`service: El carrito con id ${cartId} no existe`)
+        return null ;
+      } 
 
       const existingProduct = cart.products.find(
         (prod) => prod.item.toString() === productId
@@ -84,12 +90,12 @@ class CartsMongo {
       if (existingProduct) {
         existingProduct.quantity += quantity;
         logger.info(
-          `Se ha agregado la cantidad de ${quantity} item(s) al producto`
+          `service: Se ha agregado la cantidad de ${quantity} item(s) al producto`
         );
       } else {
         const newProduct = { item: productId, quantity: quantity }; // Corregido aquí, cambiado de product a item
         cart.products.push(newProduct);
-        logger.info(`Se ha agregado el producto ${productId} al carrito`);
+        logger.info(`service: Se ha agregado el producto ${productId} al carrito`);
       }
 
       await cart.save();
@@ -98,6 +104,8 @@ class CartsMongo {
         .findById(cartId)
         .populate("products.item")
         .lean();
+        
+      
       return populatedCart;
     } catch (error) {
       logger.error("Error:", error);
@@ -122,7 +130,7 @@ class CartsMongo {
         return `producto ${productId} eliminado del carrito`;
       }
     } catch (error) {
-      logger.error("error:", error);
+      logger.error("service error:", error);
     }
   };
 }

@@ -3,9 +3,18 @@
 <h3> {{product.title}} </h3>
 <p> description:{{product.description}} </p>
 <p> price: ${{product.price}} clp </p>
+<p id="product-id">{{pid}}</p>
 
-<form action="/api/carts/{{cart}}/products/{{pid}}" method="post">
+<form id="send-form" action="" method="">
     <label for="quantity">select cuantity</label>
     <input type="number" name="quantity" id="quantity">
-    <button type="submit">Add to cart </button>
+    <label for="cart">select cart:</label>
+    <select name="cart" id="cart">
+        {{#each carts}}
+             <option class="cart" value="{{this}}" cartID="{{this}}">carrito {{this}}</option>
+        {{/each}}
+    </select>
+    <button id="add-btn"  type="submit">Add to cart </button>
 </form>
+
+<script src="/js/addProduct.js"></script>

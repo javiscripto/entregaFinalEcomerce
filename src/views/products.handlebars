@@ -15,7 +15,26 @@
   <a class="nav-link" href="/logout">logout</a>
   <a href="/api/users/{{user._id}}" class="nav-link">ver perfil </a>
   <div class="user-cart nav-item">
-    <a class="nav-link" href="/api/carts/{{user._id}}">ver carrito(s)</a>
+    {{!-- <a class="nav-link" href="/api/carts/{{user._id}}">ver carrito(s)</a> --}}
+      <div class="dropdown">
+    <button
+      class="btn btn-secondary dropdown-toggle"
+      type="button"
+      id="dropdownMenuButton1"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      carritos
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      {{#each user.carts}}
+      
+      <li><a class="dropdown-item" href="/api/carts/{{this}}">{{this}}</a></li>
+      {{/each}}
+      
+     
+    </ul>
+  </div>
   </div>
   <form action="/api/carts/{{user._id}}" method="post" class="user-cart nav-item">
   <button type="submit">crear nuevo carrito</button>
