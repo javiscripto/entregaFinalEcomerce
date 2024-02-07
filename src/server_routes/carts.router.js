@@ -31,9 +31,7 @@ const userAuthorization = authorize(['user',`premium`]);
 router.post("/:uid",cartControler.createCart);
 
 //////////////////////////////
-//crear una ruta de prueba que obtenga los carritos de un usuario
-//router.get("/:uid", cartControler.getUserCart)
-//////////////////
+
 
 //get All
 router.get("/",cartControler.getAll);

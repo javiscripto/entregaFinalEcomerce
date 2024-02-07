@@ -15,14 +15,14 @@ const sendData = document.getElementById("send-form").addEventListener("submit",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({quantity:quantity})
     })
-    // .then(response=>{
-    //     if(response.ok){
-    //         alert(`se ha agregado el producto ${productId} al carrito ${cart}`);
+    .then(response=>{
+        if(response.ok){
+            alert(`se ha agregado el producto ${productId} al carrito ${cart}`);
             
-    //     }else if(response.status===400){
-    //         alert("no se ha podido agregar el producto")
-    //     }
-    // })
+        }else if(response.status===400){
+            alert("no se ha podido agregar el producto")
+        }
+    })
     .catch(error=>{
         alert("error en la solicitud");
         console.log("ha ocurrido un error: ", error)
