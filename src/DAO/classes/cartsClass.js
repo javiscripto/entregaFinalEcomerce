@@ -10,23 +10,35 @@ class CartsMongo {
     try {
       // Crear un nuevo carrito
       const cart = await cartModel.create({ products: [] });
-
-      // Actualizar el usuario para agregar el nuevo carrito al array 'carts'
       const user = await userModel.findById(userId);
       if (!user) {
         logger.error(`Usuario con id ${userId} no encontrado.`);
         return null;
       }
 
-      user.carts.push(cart._id); // Agregar el nuevo carrito al array 'carts'
+      user.carts.push(cart._id); 
       await user.save();
 
       return cart;
     } catch (error) {
       logger.error("Error al crear carrito", error);
-      return null;
+      
     }
   };
+
+  deleteCartById=async(cartId)=>{
+    try {
+      const deletedCart= await cartModel.findByIdAndDelete(cartId);
+      if(!deletedCart){
+        logger.warn(`el carrito con id ${cartId}`);
+        return null
+      }
+      return deletedCart
+    } catch (error) {
+      logger.error("Error en la base de datos: ", error);
+      
+    }
+  }
 
   getAll = async () => {
     try {
@@ -115,19 +127,24 @@ class CartsMongo {
   deleteProduct = async (cartId, productId) => {
     try {
       const cart = await cartModel.findById(cartId);
-      if (!cart) return `el carrito con id ${cartId} no existe`;
-
+      if (!cart) {
+        logger.warn(`el carrito con id ${cartId} no existe`)
+        return null;
+      }
+      console.log(cart.products)
       const productToDeleteIndex = cart.products.findIndex(
-        (prod) => prod.item.toString() === productId
+        (prod) => prod._id.toString() === productId
       );
 
       if (productToDeleteIndex === -1) {
         logger.info("Producto no encontrado en el carrito");
+        return null
       } else {
         // Eliminar el producto del array de productos del carrito
         cart.products.splice(productToDeleteIndex, 1);
         await cart.save();
-        return `producto ${productId} eliminado del carrito`;
+        logger.debug(`service:  producto ${productId} eliminado del carrito`);
+        return cart
       }
     } catch (error) {
       logger.error("service error:", error);

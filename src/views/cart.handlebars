@@ -1,4 +1,5 @@
-<h1>Carrito {{cid}}</h1>
+<h1>Carrito </h1>
+<p id="cartID">{{cartId}}</p>
 
 Producto(s):
 {{#each products}}
@@ -6,12 +7,19 @@ Producto(s):
     <h3>Artículo: {{item.title}}</h3>
     <p>precio: ${{item.price}} clp</p>
     <p>Cantidad: {{quantity}}</p>
+    <p>id del producto:</p>
+    <p>{{_id}}</p>
+    <div>
+      <button class="delete-btn" pid={{_id}} >eliminar producto</button>
+    </div>
   </div>
 
 {{/each}}
 
 
 
-<form action="/api/carts/{{cid}}/purchase" method="post">
+<form action="/api/carts/{{cartId}}/purchase" method="post">
 <button type="submit">finalizar la compra</button>
 </form>
+
+<script src="/js/deleteProduct.js"></script>
