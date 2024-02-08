@@ -18,6 +18,7 @@ const sendData = document.getElementById("send-form").addEventListener("submit",
     .then(response=>{
         if(response.ok){
             alert(`se ha agregado el producto ${productId} al carrito ${cart}`);
+            location.reload()
             
         }else if(response.status===400){
             alert("no se ha podido agregar el producto")

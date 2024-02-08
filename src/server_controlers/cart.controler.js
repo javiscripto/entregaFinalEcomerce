@@ -33,7 +33,7 @@ const getById = async (req, res) => {
     const cartId = req.params.cid;
 
     const cart = await cartService.getById(cartId);
-    console.log(cart);
+   
     const products = cart.products;
     //
 
@@ -83,7 +83,7 @@ const purchase = async (req, res) => {
       amount += prod.item.price * prod.quantity;
     });
 
-    const user = await userModel.findOne({ carts: {$in:cid} }).lean();
+    const user = await userModel.findOne({ carts: {$in:cid} });
     const data = {
       code: `${cid}`,
       amount: amount,
@@ -91,11 +91,13 @@ const purchase = async (req, res) => {
     };
     const result = await ticketService.createTicket(data);
     await cartService.deleteCartById(cid);
-    res
-      .status(201)
-      .json({ comprados: result, NoComprados: validatedProducts[1] });
+    const indexOfcart=user.carts.findIndex(cartId=>cartId.toString()===cid)
+    user.carts.splice(indexOfcart,1);
+    
+    await user.save();
+    res.status(201).json({ comprados: result, NoComprados: validatedProducts[1] });
   } catch (error) {
-    res.status(500).send("ha ocurrido un error interno: ", error);
+    res.send("ha ocurrido un error interno: ");
     logger.error("error interno en el servidor: ", error);
   }
 };

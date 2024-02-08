@@ -45,7 +45,10 @@ class ProductsMOngo {
   getById = async (productId) => {
     try {
       const product = await productModel.findById(productId).lean();
-      if (!product) return `producto ${productId} no encontrado`;
+      if (!product){
+        logger.warn(`producto ${productId} no encontrado`)
+        return null;
+      } 
       return product;
     } catch (error) {
       logger.error(`error:`, error);
@@ -78,7 +81,7 @@ class ProductsMOngo {
     try {
       const product = await productModel.findById(productId).lean();
       if(!product){
-        console.log("producto no encontrado")
+        logger.info("producto no encontrado")
         return null
       }
       const ownerid= product.owner 

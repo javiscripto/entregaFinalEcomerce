@@ -90,7 +90,7 @@ class CartsMongo {
 
 
       const cart = await cartModel.findById(cartId);
-      console.log(cart)
+      
       if (!cart){
         logger.debug(`service: El carrito con id ${cartId} no existe`)
         return null ;
@@ -131,7 +131,7 @@ class CartsMongo {
         logger.warn(`el carrito con id ${cartId} no existe`)
         return null;
       }
-      console.log(cart.products)
+      
       const productToDeleteIndex = cart.products.findIndex(
         (prod) => prod._id.toString() === productId
       );

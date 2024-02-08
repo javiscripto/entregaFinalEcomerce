@@ -130,7 +130,7 @@ const initializePassport = () => {
      async (username, done)=>{
         try {
           const user = await userModel.findOne({ email: username });
-          console.log(user)
+          logger.info(user)
           if (!user) {
 
             return done(null, false);//credenciales invalidas

@@ -2,11 +2,10 @@ import { logger } from "../../logger/logger.js";
 import ProductsMOngo from "../DAO/classes/productsClass.js";
 import productModel from "../DAO/models/product.model.js";
 import { transporter } from "../../utils.js";
-
-import { createMulterMiddleware } from "../middlewares/multerMiddleware.js";
-import { createTransport } from "nodemailer";
+import UserMongo from "../DAO/classes/userClass.js";
 
 const productService = new ProductsMOngo();
+const userService= new UserMongo();
 
 export const getAll = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
@@ -24,10 +23,11 @@ export const getAll = async (req, res) => {
 
       const dbProducts = result.docs.map((product) => product.toObject()); // Convertir a objetos JSON
 
-      const user = req.session.user;
+      const userId = req.session.user._id;
+      const user= await userService.getUserById(userId)
       const adminRole = user.role === "admin" || user.role === "premium"; // Corregir la condición de roles
 
-      console.log(user)
+      
       res.status(200).render("products", {
         dbProducts,
         hasPreviousPage,
@@ -44,17 +44,18 @@ export const getAll = async (req, res) => {
       res.json(products);
     }
   } catch (error) {
-    console.error("Ha ocurrido un error en el controlador getAll:", error);
+    logger.error("error interno del servidor:", error);
     res.status(500).json({ result: "error", message: error.message });
   }
 };
 
 export const getById = async (req, res) => {
   try {
-    const carts = req.session.user.carts;
+    const user = await userService.getUserById(req.session.user._id);
+    const carts=user.carts;
     const pid = req.params.pid;
     const product = await productService.getById(pid);
-    console.log(carts)
+    
     res.render("detail", { product, pid, carts });
   } catch (error) {
     res.status(500).json({ result: "error", message: error.message });
@@ -83,7 +84,7 @@ export const createProduct = async (req, res) => {
     }
 
     //imagen cargada
-    console.log(req.file);
+    logger.info(req.file);
 
     const newProduct = { ...product, owner: ownerId };
     const createdProduct = await productService.createProduct(newProduct);

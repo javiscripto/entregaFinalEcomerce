@@ -85,7 +85,7 @@ export const PUTuserRole = async(req, res)=>{
              if(req.session.user.role!=="admin"){ //valido si quien realizó la solicitud fue el administrador
             req.session.user=result;//actualizo req.session 
         };
-        console.log(req.session.user)
+        logger.info(req.session.user)
         return res.status(200).send("el rol del usuario ha sido actualizado");
         };
         
