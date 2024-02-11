@@ -103,6 +103,7 @@ export default class UserMongo {
     try {
       const user = await userModel.findById(userId).lean();
       if (!user) {
+        logger.warn(`usuario no encontrado`)
         return null;
       }
       const userClient = new UserDTO(user);

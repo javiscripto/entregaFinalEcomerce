@@ -62,9 +62,10 @@ export const deleteUsers= async(req, res)=>{
 //get user info
 export const getUserInfo = async(req, res) => {
     try {
-    const user = req.session.user;
+    //const user = req.session.user;
     const userId= req.params.uid;
     
+    const user= await userService.getUserById(userId)
  
     res.render("userinfo", { user });
     } catch (error) {
