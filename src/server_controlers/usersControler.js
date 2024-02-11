@@ -67,7 +67,7 @@ export const getUserInfo = async(req, res) => {
     
     const user= await userService.getUserById(userId)
  
-    res.render("userinfo", { user });
+    res.render("userInfo", { user });
     } catch (error) {
         res.status(500).send({message:"error interno del servidor", error:error})
         logger.error("error interno del servidor: ", error)

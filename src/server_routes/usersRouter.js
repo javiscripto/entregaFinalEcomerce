@@ -24,7 +24,6 @@ router.get("/:uid", activeSession , getUserInfo);
 router.get("/", activeSession,adminAuthorization, getAllUsers);
 
 //DELETE / deberá limpiar a todos los usuarios que no hayan tenido conexión en los últimos 2 días. 
-//(puedes hacer pruebas con los últimos 30 minutos, por ejemplo). Deberá enviarse un correo indicando al usuario que su cuenta ha sido eliminada por inactividad
 router.delete("/delete", activeSession, adminAuthorization, deleteUsers)
 
 router.delete("/delete/:uid", activeSession, adminAuthorization, deleteUserById)
